@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <title>게시글 리스트페이지</title>
+    <title>My Website</title>
+
+    <!-- 부트스트랩 스타일시트 링크 -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
 </head>
 
 <style>
@@ -37,11 +41,17 @@
     </table>
 
       <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
-          <a th:if="${page != nowPage}" th:href="@{/board/list(page = ${page -1})}" th:text="${page}"></a>
+          <a th:if="${page != nowPage}" th:href="@{/board/list(page = ${page -1}, searchKeyword = ${param.searchKeyword})}" th:text="${page}"></a>
           <strong th:if="${page == nowPage}"  th:text="${page}" style="color : blue"></strong>
 
       </th:block>
+      <form th:action="@{/board/list}" method="get">
+          <input type="text" name="searchKeyword">
+          <button type="submit">검색</button>
+      </form>
 
   </div>
+  <script th:src="@{/js/bootstrap.min.js}"></script>
+
 </body>
 </html>
